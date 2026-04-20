@@ -1,0 +1,42 @@
+<div class="layout-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand__dot"></span>
+      <div>
+        <p class="brand__title">ClinicPro</p>
+        <p class="brand__subtitle">Frontend clean architecture</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      <a routerLink="/patients">Patients</a>
+      <a routerLink="/medecins">Médecins</a>
+      <a routerLink="/rendezvous">Rendez-vous</a>
+      <a routerLink="/consultations">Consultations</a>
+      <a routerLink="/factures">Factures</a>
+      <a routerLink="/notifications">Notifications</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Core / Shared / Features / Layout</p>
+        <h1>ClinicPro workspace</h1>
+      </div>
+      <span class="status">Shell ready</span>
+    </header>
+
+    <section class="panel">
+      <router-outlet></router-outlet>
+      <div class="empty-state">
+        <h2>Clean architecture foundation is ready</h2>
+        <p>
+          Add new features inside <code>features</code>, reuse UI pieces from
+          <code>shared</code>, and keep cross-cutting stuff in <code>core</code>.
+        </p>
+      </div>
+    </section>
+  </main>
+</div>
