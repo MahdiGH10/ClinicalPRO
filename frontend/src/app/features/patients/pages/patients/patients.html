@@ -1,0 +1,107 @@
+<section class="patients-page">
+  <header class="patients-page__header">
+    <div>
+      <p class="kicker">Patients feature</p>
+      <h2>Gestion des patients (API réelle)</h2>
+      <p>Liste, recherche et CRUD branchés sur les endpoints backend.</p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (success()) {
+    <article class="notice notice--success">{{ success() }}</article>
+  }
+
+  <section class="panel panel--form">
+    <div class="panel__head">
+      <h3>{{ isEditMode() ? 'Modifier un patient' : 'Nouveau patient' }}</h3>
+      @if (isEditMode()) {
+        <button type="button" class="ghost-btn" (click)="resetForm()">Annuler la modification</button>
+      }
+    </div>
+
+    <form class="patient-form" [formGroup]="patientForm" (ngSubmit)="savePatient()">
+      <label>
+        <span>Nom</span>
+        <input type="text" formControlName="nom" placeholder="Nom complet" />
+        @if (controlError('nom')) {
+          <small>Le nom est obligatoire.</small>
+        }
+      </label>
+
+      <label>
+        <span>Date de naissance</span>
+        <input type="date" formControlName="dateNaissance" />
+        @if (controlError('dateNaissance')) {
+          <small>La date de naissance est obligatoire.</small>
+        }
+      </label>
+
+      <label>
+        <span>Téléphone</span>
+        <input type="text" formControlName="tel" placeholder="0600000000" />
+        @if (controlError('tel')) {
+          <small>Le téléphone est obligatoire.</small>
+        }
+      </label>
+
+      <label class="full-width">
+        <span>Dossier médical</span>
+        <textarea rows="3" formControlName="dossierMedical" placeholder="Notes médicales..."></textarea>
+      </label>
+
+      <button type="submit" class="primary-btn" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement...' : (isEditMode() ? 'Mettre à jour' : 'Créer') }}
+      </button>
+    </form>
+  </section>
+
+  <section class="panel panel--list">
+    <div class="panel__head">
+      <h3>Patients</h3>
+      <input
+        #searchInput
+        type="search"
+        placeholder="Rechercher par nom..."
+        (keyup.enter)="searchByNom(searchInput.value)"
+      />
+      <div class="actions">
+        <button type="button" class="ghost-btn" (click)="searchByNom(searchInput.value)">Rechercher</button>
+        <button type="button" class="ghost-btn" (click)="searchInput.value = ''; loadPatients()">Réinitialiser</button>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Chargement des patients...</p>
+    } @else if (patients().length === 0) {
+      <p class="state">Aucun patient trouvé.</p>
+    } @else {
+      <ul class="patient-list">
+        @for (patient of patients(); track patient.id) {
+          <li>
+            <div>
+              <strong>{{ patient.nom }}</strong>
+              <p>Né(e) le {{ patient.dateNaissance | date: 'longDate' }}</p>
+              <small>Tél: {{ patient.tel }}</small>
+            </div>
+
+            <div class="row-actions">
+              <button type="button" class="ghost-btn" (click)="selectForEdit(patient)">Modifier</button>
+              <button
+                type="button"
+                class="danger-btn"
+                [disabled]="deletingId() === patient.id"
+                (click)="deletePatient(patient)"
+              >
+                {{ deletingId() === patient.id ? 'Suppression...' : 'Supprimer' }}
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

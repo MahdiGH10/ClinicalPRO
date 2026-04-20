@@ -5,6 +5,7 @@ import { guestGuard } from './core/auth/guest.guard';
 import { LayoutComponent } from './features/layout/layout';
 import { LoginComponent } from './features/auth/pages/login/login';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
+import { PatientsComponent } from './features/patients/pages/patients/patients';
 import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
 
 export const routes: Routes = [
@@ -24,11 +25,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'patients',
-				component: FeaturePlaceholderComponent,
-				data: {
-					title: 'Patients',
-					description: 'This route is reserved for the patients feature slice.'
-				}
+				component: PatientsComponent
 			},
 			{
 				path: 'medecins',
