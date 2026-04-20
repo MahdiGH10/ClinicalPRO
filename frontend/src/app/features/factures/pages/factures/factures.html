@@ -1,0 +1,91 @@
+<section class="factures-page">
+  <header class="factures-page__header">
+    <div>
+      <p class="kicker">Factures feature</p>
+      <h2>Gestion des factures (API réelle)</h2>
+      <p>Liste, filtrage et actions de paiement branchés sur les endpoints backend.</p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (success()) {
+    <article class="notice notice--success">{{ success() }}</article>
+  }
+
+  <section class="panel panel--filters">
+    <div class="panel__head">
+      <h3>Filtrer par statut</h3>
+    </div>
+
+    <div class="filters">
+      @for (status of statutOptions; track status) {
+        <button
+          type="button"
+          class="filter-btn"
+          [class.active]="selectedStatusFilter() === status"
+          (click)="filterByStatus(status)"
+        >
+          @if (status === '') {
+            Tous
+          } @else {
+            {{ statutLabel($any(status)) }}
+          }
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="panel panel--list">
+    <div class="panel__head">
+      <h3>Factures</h3>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Chargement des factures...</p>
+    } @else if (filteredFactures().length === 0) {
+      <p class="state">Aucune facture trouvée.</p>
+    } @else {
+      <ul class="facture-list">
+        @for (facture of filteredFactures(); track facture.id) {
+          <li>
+            <div class="facture-header">
+              <div>
+                <strong>{{ facture.numeroFacture }}</strong>
+                <p>Consultation - {{ facture.consultation.rendezVous.patientNom }}</p>
+              </div>
+              <span class="status" [ngClass]="statutClass(facture.statutPaiement)">
+                {{ statutLabel(facture.statutPaiement) }}
+              </span>
+            </div>
+
+            <div class="facture-details">
+              <div>
+                <small>
+                  Dr. {{ facture.consultation.rendezVous.medecinNom }} ·
+                  {{ formatDate(facture.dateEmission) }}
+                </small>
+              </div>
+              <div class="amount">
+                <strong>{{ facture.montant | number: '1.2-2' }} MAD</strong>
+              </div>
+            </div>
+
+            @if (facture.statutPaiement === 'EN_ATTENTE') {
+              <button
+                type="button"
+                class="pay-btn"
+                [disabled]="payingId() === facture.id"
+                (click)="markAsPaid(facture)"
+              >
+                {{ payingId() === facture.id ? 'Traitement...' : 'Marquer comme payée' }}
+              </button>
+            }
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

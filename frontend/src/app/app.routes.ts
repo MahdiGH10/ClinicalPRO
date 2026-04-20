@@ -8,6 +8,7 @@ import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboa
 import { PatientsComponent } from './features/patients/pages/patients/patients';
 import { MedecinsComponent } from './features/medecins/pages/medecins/medecins';
 import { RendezvousComponent } from './features/rendezvous/pages/rendezvous/rendezvous';
+import { FacturesComponent } from './features/factures/pages/factures/factures';
 import { ConsultationsComponent } from './features/consultations/pages/consultations/consultations';
 import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
 
@@ -44,11 +45,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'factures',
-				component: FeaturePlaceholderComponent,
-				data: {
-					title: 'Factures',
-					description: 'This route is reserved for the billing feature slice.'
-				}
+				component: FacturesComponent
 			},
 			{
 				path: 'notifications',
