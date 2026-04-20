@@ -1,0 +1,137 @@
+<section class="rendezvous-page">
+  <header class="rendezvous-page__header">
+    <div>
+      <p class="kicker">Rendez-vous feature</p>
+      <h2>Gestion des rendez-vous (API réelle)</h2>
+      <p>Liste, recherche et CRUD branchés sur les endpoints backend.</p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (success()) {
+    <article class="notice notice--success">{{ success() }}</article>
+  }
+
+  <section class="panel panel--form">
+    <div class="panel__head">
+      <h3>{{ isEditMode() ? 'Modifier un rendez-vous' : 'Nouveau rendez-vous' }}</h3>
+      @if (isEditMode()) {
+        <button type="button" class="ghost-btn" (click)="resetForm()">Annuler la modification</button>
+      }
+    </div>
+
+    @if (loadingLookups()) {
+      <p class="state">Chargement des patients et des médecins...</p>
+    } @else {
+      <form class="rendezvous-form" [formGroup]="rendezVousForm" (ngSubmit)="saveRendezVous()">
+        <label>
+          <span>Patient</span>
+          <select formControlName="patientId">
+            <option value="">Sélectionner un patient</option>
+            @for (patient of patients(); track patient.id) {
+              <option [value]="patient.id">{{ patient.nom }}</option>
+            }
+          </select>
+          @if (controlError('patientId')) {
+            <small>Le patient est obligatoire.</small>
+          }
+        </label>
+
+        <label>
+          <span>Médecin</span>
+          <select formControlName="medecinId">
+            <option value="">Sélectionner un médecin</option>
+            @for (medecin of medecins(); track medecin.id) {
+              <option [value]="medecin.id">{{ medecin.nom }} ({{ medecin.specialite }})</option>
+            }
+          </select>
+          @if (controlError('medecinId')) {
+            <small>Le médecin est obligatoire.</small>
+          }
+        </label>
+
+        <label>
+          <span>Date & heure</span>
+          <input type="datetime-local" formControlName="dateHeure" />
+          @if (controlError('dateHeure')) {
+            <small>La date et l'heure sont obligatoires (dans le futur).</small>
+          }
+        </label>
+
+        <label>
+          <span>Statut</span>
+          <select formControlName="statut">
+            @for (statut of statutOptions; track statut) {
+              <option [value]="statut">{{ statusLabel(statut) }}</option>
+            }
+          </select>
+          @if (controlError('statut')) {
+            <small>Le statut est obligatoire.</small>
+          }
+        </label>
+
+        <label class="full-width">
+          <span>Motif</span>
+          <textarea rows="3" formControlName="motif" placeholder="Motif du rendez-vous..."></textarea>
+          @if (controlError('motif')) {
+            <small>Le motif est obligatoire.</small>
+          }
+        </label>
+
+        <button type="submit" class="primary-btn" [disabled]="saving() || loadingLookups()">
+          {{ saving() ? 'Enregistrement...' : (isEditMode() ? 'Mettre à jour' : 'Créer') }}
+        </button>
+      </form>
+    }
+  </section>
+
+  <section class="panel panel--list">
+    <div class="panel__head">
+      <h3>Rendez-vous</h3>
+      <select #patientFilter (change)="searchByPatient(patientFilter.value)">
+        <option value="">Tous les patients</option>
+        @for (patient of patients(); track patient.id) {
+          <option [value]="patient.id">{{ patient.nom }}</option>
+        }
+      </select>
+      <div class="actions">
+        <button type="button" class="ghost-btn" (click)="searchByPatient(patientFilter.value)">Filtrer</button>
+        <button type="button" class="ghost-btn" (click)="patientFilter.value = ''; searchByPatient('')">Réinitialiser</button>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Chargement des rendez-vous...</p>
+    } @else if (rendezVous().length === 0) {
+      <p class="state">Aucun rendez-vous trouvé.</p>
+    } @else {
+      <ul class="rendezvous-list">
+        @for (item of rendezVous(); track item.id) {
+          <li>
+            <div>
+              <strong>{{ item.patientNom }}</strong>
+              <p>avec {{ item.medecinNom }}</p>
+              <p>{{ item.dateHeure | date: 'short' }}</p>
+              <small>{{ statusLabel(item.statut) }} · {{ item.motif }}</small>
+            </div>
+
+            <div class="row-actions">
+              <button type="button" class="ghost-btn" (click)="selectForEdit(item)">Modifier</button>
+              <button
+                type="button"
+                class="danger-btn"
+                [disabled]="deletingId() === item.id"
+                (click)="deleteRendezVous(item)"
+              >
+                {{ deletingId() === item.id ? 'Suppression...' : 'Supprimer' }}
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>
