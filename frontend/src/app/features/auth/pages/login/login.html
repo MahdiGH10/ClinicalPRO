@@ -1,0 +1,57 @@
+<section class="login-page">
+  <div class="login-card">
+    <div class="login-card__hero">
+      <p class="eyebrow">ClinicPro / Auth</p>
+      <h1>Reconnecte-toi et reprends le contrôle</h1>
+      <p>
+        Accède au tableau de bord, protège les données patients et garde les opérations fluides.
+      </p>
+
+      <ul>
+        <li>JWT branché sur le backend</li>
+        <li>Guard pour protéger le shell</li>
+        <li>Interceptor pour les appels API</li>
+      </ul>
+    </div>
+
+    <form class="login-card__form" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div>
+        <p class="form-kicker">Connexion sécurisée</p>
+        <h2>Login</h2>
+        <p class="form-helper">Entre tes identifiants pour ouvrir la session ClinicPro.</p>
+      </div>
+
+      @if (sessionNotice) {
+        <div class="alert alert--info">{{ sessionNotice }}</div>
+      }
+
+      @if (errorMessage()) {
+        <div class="alert alert--error">{{ errorMessage() }}</div>
+      }
+
+      <label class="field">
+        <span>Nom d’utilisateur</span>
+        <input type="text" formControlName="username" placeholder="admin" autocomplete="username" />
+        @if (controlError('username')) {
+          <small>Le nom d’utilisateur est obligatoire.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Mot de passe</span>
+        <input type="password" formControlName="password" placeholder="••••••••" autocomplete="current-password" />
+        @if (controlError('password')) {
+          <small>Le mot de passe est obligatoire.</small>
+        }
+      </label>
+
+      <button class="primary-btn" type="submit" [disabled]="loading()">
+        {{ loading() ? 'Connexion...' : 'Se connecter' }}
+      </button>
+
+      <p class="login-card__hint">
+        Le backend attend un jeton <strong>Bearer JWT</strong> et le shell sera protégé après connexion.
+      </p>
+    </form>
+  </div>
+</section>

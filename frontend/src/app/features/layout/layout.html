@@ -24,8 +24,12 @@
       <div>
         <p class="eyebrow">Core / Shared / Features / Layout</p>
         <h1>ClinicPro workspace</h1>
+        <p class="topbar__subtitle">Signed in as <strong>{{ username }}</strong></p>
       </div>
-      <span class="status">Shell ready</span>
+      <div class="topbar__actions">
+        <span class="status">Shell ready</span>
+        <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+      </div>
     </header>
 
     <section class="panel">

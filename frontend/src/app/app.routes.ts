@@ -1,12 +1,21 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './core/auth/auth.guard';
+import { guestGuard } from './core/auth/guest.guard';
 import { LayoutComponent } from './features/layout/layout';
+import { LoginComponent } from './features/auth/pages/login/login';
 import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
 
 export const routes: Routes = [
 	{
+		path: 'auth/login',
+		component: LoginComponent,
+		canActivate: [guestGuard]
+	},
+	{
 		path: '',
 		component: LayoutComponent,
+		canActivate: [authGuard],
 		children: [
 			{
 				path: '',
@@ -65,5 +74,9 @@ export const routes: Routes = [
 				}
 			}
 		]
+	},
+	{
+		path: '**',
+		redirectTo: ''
 	}
 ];
