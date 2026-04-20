@@ -6,11 +6,14 @@ import { LayoutComponent } from './features/layout/layout';
 import { LoginComponent } from './features/auth/pages/login/login';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
 import { PatientsComponent } from './features/patients/pages/patients/patients';
+import { PatientDetailComponent } from './features/patients/pages/patient-detail/patient-detail';
 import { MedecinsComponent } from './features/medecins/pages/medecins/medecins';
+import { MedecinDetailComponent } from './features/medecins/pages/medecin-detail/medecin-detail';
 import { RendezvousComponent } from './features/rendezvous/pages/rendezvous/rendezvous';
+import { RendezvousDetailComponent } from './features/rendezvous/pages/rendezvous-detail/rendezvous-detail';
 import { FacturesComponent } from './features/factures/pages/factures/factures';
 import { ConsultationsComponent } from './features/consultations/pages/consultations/consultations';
-import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
+import { NotificationsComponent } from './features/notifications/pages/notifications/notifications';
 
 export const routes: Routes = [
 	{
@@ -32,12 +35,24 @@ export const routes: Routes = [
 				component: PatientsComponent
 			},
 			{
+				path: 'patients/:id',
+				component: PatientDetailComponent
+			},
+			{
 				path: 'medecins',
 				component: MedecinsComponent
 			},
 			{
+				path: 'medecins/:id',
+				component: MedecinDetailComponent
+			},
+			{
 				path: 'rendezvous',
 				component: RendezvousComponent
+			},
+			{
+				path: 'rendezvous/:id',
+				component: RendezvousDetailComponent
 			},
 			{
 				path: 'consultations',
@@ -49,11 +64,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'notifications',
-				component: FeaturePlaceholderComponent,
-				data: {
-					title: 'Notifications',
-					description: 'This route is reserved for reminders and system notifications.'
-				}
+				component: NotificationsComponent
 			}
 		]
 	},

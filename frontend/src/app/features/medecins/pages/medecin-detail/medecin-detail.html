@@ -1,0 +1,33 @@
+<section class="medecin-detail">
+  <header class="detail-header">
+    <button type="button" class="back-btn" (click)="goBack()">← Retour</button>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (loading()) {
+    <p class="state">Chargement du médecin...</p>
+  } @else if (medecin()) {
+    <div class="detail-content">
+      <div class="detail-card">
+        <h2>{{ medecin()!.nom }}</h2>
+        <div class="detail-grid">
+          <div class="field">
+            <label>Spécialité</label>
+            <p>{{ medecin()!.specialite }}</p>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <p><a [href]="'mailto:' + medecin()!.email">{{ medecin()!.email }}</a></p>
+          </div>
+          <div class="field">
+            <label>Téléphone</label>
+            <p><a [href]="'tel:' + medecin()!.tel">{{ medecin()!.tel }}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</section>

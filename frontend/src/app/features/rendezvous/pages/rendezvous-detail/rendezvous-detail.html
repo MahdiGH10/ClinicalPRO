@@ -1,0 +1,39 @@
+<section class="rendezvous-detail">
+  <header class="detail-header">
+    <button type="button" class="back-btn" (click)="goBack()">← Retour</button>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (loading()) {
+    <p class="state">Chargement du rendez-vous...</p>
+  } @else if (rendezVous()) {
+    <div class="detail-content">
+      <div class="detail-card">
+        <div class="detail-header-info">
+          <h2>{{ rendezVous()!.patientNom }}</h2>
+          <span class="status" [ngClass]="statusClass(rendezVous()!.statut)">
+            {{ statusLabel(rendezVous()!.statut) }}
+          </span>
+        </div>
+
+        <div class="detail-grid">
+          <div class="field">
+            <label>Médecin</label>
+            <p>Dr. {{ rendezVous()!.medecinNom }}</p>
+          </div>
+          <div class="field">
+            <label>Date et heure</label>
+            <p>{{ formatDate(rendezVous()!.dateHeure) }}</p>
+          </div>
+          <div class="field full-width">
+            <label>Motif de la consultation</label>
+            <p>{{ rendezVous()!.motif }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</section>

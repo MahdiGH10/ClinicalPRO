@@ -1,0 +1,96 @@
+<section class="notifications-page">
+  <header class="notifications-page__header">
+    <div>
+      <p class="kicker">Notifications feature</p>
+      <h2>Notifications et rappels (API réelle)</h2>
+      <p>Historique de notifications avec filtrage par type et statut.</p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  <section class="panel panel--filters">
+    <div class="filter-group">
+      <h4>Type</h4>
+      <div class="filters">
+        @for (type of typeOptions; track type) {
+          <button
+            type="button"
+            class="filter-btn"
+            [class.active]="selectedTypeFilter() === type"
+            (click)="filterByType(type)"
+          >
+            @if (type === '') {
+              Tous
+            } @else {
+              {{ typeLabel($any(type)) }}
+            }
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>Statut</h4>
+      <div class="filters">
+        @for (status of statusOptions; track status) {
+          <button
+            type="button"
+            class="filter-btn"
+            [class.active]="selectedStatusFilter() === status"
+            (click)="filterByStatus(status)"
+          >
+            @if (status === '') {
+              Tous
+            } @else {
+              {{ statusLabel($any(status)) }}
+            }
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="panel panel--list">
+    <div class="panel__head">
+      <h3>Notifications</h3>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Chargement des notifications...</p>
+    } @else if (filteredNotifications().length === 0) {
+      <p class="state">Aucune notification trouvée.</p>
+    } @else {
+      <ul class="notification-list">
+        @for (notification of filteredNotifications(); track notification.id) {
+          <li>
+            <div class="notification-header">
+              <div>
+                <span class="type" [ngClass]="typeClass(notification.type)">
+                  {{ typeLabel(notification.type) }}
+                </span>
+                <span class="status" [ngClass]="statusClass(notification.statut)">
+                  {{ statusLabel(notification.statut) }}
+                </span>
+              </div>
+              <span class="date">{{ formatDate(notification.dateEnvoi) }}</span>
+            </div>
+
+            <div class="notification-body">
+              <p class="patient">
+                <strong>{{ notification.rendezVous.patientNom }}</strong>
+              </p>
+              <p class="message">{{ notification.message }}</p>
+              <small>
+                Dr. {{ notification.rendezVous.medecinNom }} ·
+                {{ notification.rendezVous.dateHeure | date: 'longDate' }}
+              </small>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

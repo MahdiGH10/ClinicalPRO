@@ -1,0 +1,1 @@
+export * from './medecin-detail';

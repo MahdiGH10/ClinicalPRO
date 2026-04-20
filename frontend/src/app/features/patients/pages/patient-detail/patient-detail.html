@@ -1,0 +1,35 @@
+<section class="patient-detail">
+  <header class="detail-header">
+    <button type="button" class="back-btn" (click)="goBack()">← Retour</button>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (loading()) {
+    <p class="state">Chargement du patient...</p>
+  } @else if (patient()) {
+    <div class="detail-content">
+      <div class="detail-card">
+        <h2>{{ patient()!.nom }}</h2>
+        <div class="detail-grid">
+          <div class="field">
+            <label>Né(e) le</label>
+            <p>{{ formatDate(patient()!.dateNaissance) }}</p>
+          </div>
+          <div class="field">
+            <label>Téléphone</label>
+            <p>{{ patient()!.tel }}</p>
+          </div>
+          @if (patient()!.dossierMedical) {
+            <div class="field full-width">
+              <label>Dossier médical</label>
+              <p>{{ patient()!.dossierMedical }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>
