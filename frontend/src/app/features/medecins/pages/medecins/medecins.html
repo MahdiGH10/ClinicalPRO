@@ -1,0 +1,110 @@
+<section class="medecins-page">
+  <header class="medecins-page__header">
+    <div>
+      <p class="kicker">Médecins feature</p>
+      <h2>Gestion des médecins (API réelle)</h2>
+      <p>Liste, recherche et CRUD branchés sur les endpoints backend.</p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (success()) {
+    <article class="notice notice--success">{{ success() }}</article>
+  }
+
+  <section class="panel panel--form">
+    <div class="panel__head">
+      <h3>{{ isEditMode() ? 'Modifier un médecin' : 'Nouveau médecin' }}</h3>
+      @if (isEditMode()) {
+        <button type="button" class="ghost-btn" (click)="resetForm()">Annuler la modification</button>
+      }
+    </div>
+
+    <form class="medecin-form" [formGroup]="medecinForm" (ngSubmit)="saveMedecin()">
+      <label>
+        <span>Nom</span>
+        <input type="text" formControlName="nom" placeholder="Nom complet" />
+        @if (controlError('nom')) {
+          <small>Le nom est obligatoire.</small>
+        }
+      </label>
+
+      <label>
+        <span>Spécialité</span>
+        <input type="text" formControlName="specialite" placeholder="Ex: Cardiologie" />
+        @if (controlError('specialite')) {
+          <small>La spécialité est obligatoire.</small>
+        }
+      </label>
+
+      <label>
+        <span>Email</span>
+        <input type="email" formControlName="email" placeholder="medecin@clinicpro.com" />
+        @if (controlError('email')) {
+          <small>Un email valide est obligatoire.</small>
+        }
+      </label>
+
+      <label>
+        <span>Téléphone</span>
+        <input type="text" formControlName="tel" placeholder="0600000000" />
+        @if (controlError('tel')) {
+          <small>Le téléphone est obligatoire.</small>
+        }
+      </label>
+
+      <button type="submit" class="primary-btn" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement...' : (isEditMode() ? 'Mettre à jour' : 'Créer') }}
+      </button>
+    </form>
+  </section>
+
+  <section class="panel panel--list">
+    <div class="panel__head">
+      <h3>Médecins</h3>
+      <input
+        #searchInput
+        type="search"
+        placeholder="Rechercher par nom..."
+        (keyup.enter)="searchByNom(searchInput.value)"
+      />
+      <div class="actions">
+        <button type="button" class="ghost-btn" (click)="searchByNom(searchInput.value)">Rechercher</button>
+        <button type="button" class="ghost-btn" (click)="searchInput.value = ''; loadMedecins()">Réinitialiser</button>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Chargement des médecins...</p>
+    } @else if (medecins().length === 0) {
+      <p class="state">Aucun médecin trouvé.</p>
+    } @else {
+      <ul class="medecin-list">
+        @for (medecin of medecins(); track medecin.id) {
+          <li>
+            <div>
+              <strong>{{ medecin.nom }}</strong>
+              <p>{{ medecin.specialite }}</p>
+              <small>{{ medecin.email }} · {{ medecin.tel }}</small>
+            </div>
+
+            <div class="row-actions">
+              <button type="button" class="ghost-btn" (click)="selectForEdit(medecin)">Modifier</button>
+              <button
+                type="button"
+                class="danger-btn"
+                [disabled]="deletingId() === medecin.id"
+                (click)="deleteMedecin(medecin)"
+              >
+                {{ deletingId() === medecin.id ? 'Suppression...' : 'Supprimer' }}
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

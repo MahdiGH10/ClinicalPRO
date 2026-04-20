@@ -6,6 +6,7 @@ import { LayoutComponent } from './features/layout/layout';
 import { LoginComponent } from './features/auth/pages/login/login';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
 import { PatientsComponent } from './features/patients/pages/patients/patients';
+import { MedecinsComponent } from './features/medecins/pages/medecins/medecins';
 import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
 
 export const routes: Routes = [
@@ -29,11 +30,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'medecins',
-				component: FeaturePlaceholderComponent,
-				data: {
-					title: 'Médecins',
-					description: 'This route is reserved for the doctors feature slice.'
-				}
+				component: MedecinsComponent
 			},
 			{
 				path: 'rendezvous',
