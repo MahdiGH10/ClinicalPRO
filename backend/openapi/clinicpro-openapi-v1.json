@@ -1,0 +1,1676 @@
+{
+    "openapi":  "3.0.1",
+    "info":  {
+                 "contact":  {
+                                 "name":  "ClinicPro Team"
+                             },
+                 "description":  "Frozen OpenAPI contract for ClinicPro backend",
+                 "title":  "ClinicPro API",
+                 "version":  "v1"
+             },
+    "servers":  [
+                    {
+                        "url":  "http://localhost:8080",
+                        "description":  "Generated server url"
+                    }
+                ],
+    "security":  [
+                     {
+                         "bearerAuth":  [
+
+                                        ]
+                     }
+                 ],
+    "paths":  {
+                  "/api/v1/auth/login":  {
+                                             "post":  {
+                                                          "operationId":  "authenticateUser",
+                                                          "requestBody":  {
+                                                                              "content":  {
+                                                                                              "application/json":  {
+                                                                                                                       "schema":  {
+                                                                                                                                      "$ref":  "#/components/schemas/AuthRequest"
+                                                                                                                                  }
+                                                                                                                   }
+                                                                                          },
+                                                                              "required":  true
+                                                                          },
+                                                          "responses":  {
+                                                                            "200":  {
+                                                                                        "content":  {
+                                                                                                        "*/*":  {
+                                                                                                                    "schema":  {
+                                                                                                                                   "$ref":  "#/components/schemas/AuthResponse"
+                                                                                                                               }
+                                                                                                                }
+                                                                                                    },
+                                                                                        "description":  "OK"
+                                                                                    }
+                                                                        },
+                                                          "tags":  [
+                                                                       "auth-controller"
+                                                                   ]
+                                                      }
+                                         },
+                  "/api/v1/consultations":  {
+                                                "get":  {
+                                                            "operationId":  "findAll_2",
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponseListConsultationResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "consultation-controller"
+                                                                     ]
+                                                        },
+                                                "post":  {
+                                                             "operationId":  "create_3",
+                                                             "requestBody":  {
+                                                                                 "content":  {
+                                                                                                 "application/json":  {
+                                                                                                                          "schema":  {
+                                                                                                                                         "$ref":  "#/components/schemas/ConsultationRequest"
+                                                                                                                                     }
+                                                                                                                      }
+                                                                                             },
+                                                                                 "required":  true
+                                                                             },
+                                                             "responses":  {
+                                                                               "200":  {
+                                                                                           "content":  {
+                                                                                                           "*/*":  {
+                                                                                                                       "schema":  {
+                                                                                                                                      "$ref":  "#/components/schemas/ApiResponseConsultationResponse"
+                                                                                                                                  }
+                                                                                                                   }
+                                                                                                       },
+                                                                                           "description":  "OK"
+                                                                                       }
+                                                                           },
+                                                             "tags":  [
+                                                                          "consultation-controller"
+                                                                      ]
+                                                         }
+                                            },
+                  "/api/v1/consultations/patient/{patientId}":  {
+                                                                    "get":  {
+                                                                                "operationId":  "findByPatient",
+                                                                                "parameters":  [
+                                                                                                   {
+                                                                                                       "in":  "path",
+                                                                                                       "name":  "patientId",
+                                                                                                       "required":  true,
+                                                                                                       "schema":  {
+                                                                                                                      "type":  "string",
+                                                                                                                      "format":  "uuid"
+                                                                                                                  }
+                                                                                                   }
+                                                                                               ],
+                                                                                "responses":  {
+                                                                                                  "200":  {
+                                                                                                              "content":  {
+                                                                                                                              "*/*":  {
+                                                                                                                                          "schema":  {
+                                                                                                                                                         "$ref":  "#/components/schemas/ApiResponseListConsultationResponse"
+                                                                                                                                                     }
+                                                                                                                                      }
+                                                                                                                          },
+                                                                                                              "description":  "OK"
+                                                                                                          }
+                                                                                              },
+                                                                                "tags":  [
+                                                                                             "consultation-controller"
+                                                                                         ]
+                                                                            }
+                                                                },
+                  "/api/v1/consultations/{id}":  {
+                                                     "get":  {
+                                                                 "operationId":  "findById_2",
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "in":  "path",
+                                                                                        "name":  "id",
+                                                                                        "required":  true,
+                                                                                        "schema":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "uuid"
+                                                                                                   }
+                                                                                    }
+                                                                                ],
+                                                                 "responses":  {
+                                                                                   "200":  {
+                                                                                               "content":  {
+                                                                                                               "*/*":  {
+                                                                                                                           "schema":  {
+                                                                                                                                          "$ref":  "#/components/schemas/ApiResponseConsultationResponse"
+                                                                                                                                      }
+                                                                                                                       }
+                                                                                                           },
+                                                                                               "description":  "OK"
+                                                                                           }
+                                                                               },
+                                                                 "tags":  [
+                                                                              "consultation-controller"
+                                                                          ]
+                                                             }
+                                                 },
+                  "/api/v1/factures":  {
+                                           "get":  {
+                                                       "operationId":  "findAll_1",
+                                                       "responses":  {
+                                                                         "200":  {
+                                                                                     "content":  {
+                                                                                                     "*/*":  {
+                                                                                                                 "schema":  {
+                                                                                                                                "$ref":  "#/components/schemas/ApiResponseListFactureResponse"
+                                                                                                                            }
+                                                                                                             }
+                                                                                                 },
+                                                                                     "description":  "OK"
+                                                                                 }
+                                                                     },
+                                                       "tags":  [
+                                                                    "facture-controller"
+                                                                ]
+                                                   }
+                                       },
+                  "/api/v1/factures/consultation/{consultationId}":  {
+                                                                         "get":  {
+                                                                                     "operationId":  "findByConsultationId",
+                                                                                     "parameters":  [
+                                                                                                        {
+                                                                                                            "in":  "path",
+                                                                                                            "name":  "consultationId",
+                                                                                                            "required":  true,
+                                                                                                            "schema":  {
+                                                                                                                           "type":  "string",
+                                                                                                                           "format":  "uuid"
+                                                                                                                       }
+                                                                                                        }
+                                                                                                    ],
+                                                                                     "responses":  {
+                                                                                                       "200":  {
+                                                                                                                   "content":  {
+                                                                                                                                   "*/*":  {
+                                                                                                                                               "schema":  {
+                                                                                                                                                              "$ref":  "#/components/schemas/ApiResponseFactureResponse"
+                                                                                                                                                          }
+                                                                                                                                           }
+                                                                                                                               },
+                                                                                                                   "description":  "OK"
+                                                                                                               }
+                                                                                                   },
+                                                                                     "tags":  [
+                                                                                                  "facture-controller"
+                                                                                              ]
+                                                                                 },
+                                                                         "post":  {
+                                                                                      "operationId":  "generate",
+                                                                                      "parameters":  [
+                                                                                                         {
+                                                                                                             "in":  "path",
+                                                                                                             "name":  "consultationId",
+                                                                                                             "required":  true,
+                                                                                                             "schema":  {
+                                                                                                                            "type":  "string",
+                                                                                                                            "format":  "uuid"
+                                                                                                                        }
+                                                                                                         }
+                                                                                                     ],
+                                                                                      "responses":  {
+                                                                                                        "200":  {
+                                                                                                                    "content":  {
+                                                                                                                                    "*/*":  {
+                                                                                                                                                "schema":  {
+                                                                                                                                                               "$ref":  "#/components/schemas/ApiResponseFactureResponse"
+                                                                                                                                                           }
+                                                                                                                                            }
+                                                                                                                                },
+                                                                                                                    "description":  "OK"
+                                                                                                                }
+                                                                                                    },
+                                                                                      "tags":  [
+                                                                                                   "facture-controller"
+                                                                                               ]
+                                                                                  }
+                                                                     },
+                  "/api/v1/factures/{id}":  {
+                                                "get":  {
+                                                            "operationId":  "findById_1",
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "in":  "path",
+                                                                                   "name":  "id",
+                                                                                   "required":  true,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              }
+                                                                               }
+                                                                           ],
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponseFactureResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "facture-controller"
+                                                                     ]
+                                                        }
+                                            },
+                  "/api/v1/factures/{id}/payer":  {
+                                                      "patch":  {
+                                                                    "operationId":  "markPaid",
+                                                                    "parameters":  [
+                                                                                       {
+                                                                                           "in":  "path",
+                                                                                           "name":  "id",
+                                                                                           "required":  true,
+                                                                                           "schema":  {
+                                                                                                          "type":  "string",
+                                                                                                          "format":  "uuid"
+                                                                                                      }
+                                                                                       }
+                                                                                   ],
+                                                                    "responses":  {
+                                                                                      "200":  {
+                                                                                                  "content":  {
+                                                                                                                  "*/*":  {
+                                                                                                                              "schema":  {
+                                                                                                                                             "$ref":  "#/components/schemas/ApiResponseFactureResponse"
+                                                                                                                                         }
+                                                                                                                          }
+                                                                                                              },
+                                                                                                  "description":  "OK"
+                                                                                              }
+                                                                                  },
+                                                                    "tags":  [
+                                                                                 "facture-controller"
+                                                                             ]
+                                                                }
+                                                  },
+                  "/api/v1/medecins":  {
+                                           "get":  {
+                                                       "operationId":  "getAll_2",
+                                                       "responses":  {
+                                                                         "200":  {
+                                                                                     "content":  {
+                                                                                                     "*/*":  {
+                                                                                                                 "schema":  {
+                                                                                                                                "$ref":  "#/components/schemas/ApiResponseListMedecinResponse"
+                                                                                                                            }
+                                                                                                             }
+                                                                                                 },
+                                                                                     "description":  "OK"
+                                                                                 }
+                                                                     },
+                                                       "tags":  [
+                                                                    "medecin-controller"
+                                                                ]
+                                                   },
+                                           "post":  {
+                                                        "operationId":  "create_2",
+                                                        "requestBody":  {
+                                                                            "content":  {
+                                                                                            "application/json":  {
+                                                                                                                     "schema":  {
+                                                                                                                                    "$ref":  "#/components/schemas/MedecinRequest"
+                                                                                                                                }
+                                                                                                                 }
+                                                                                        },
+                                                                            "required":  true
+                                                                        },
+                                                        "responses":  {
+                                                                          "200":  {
+                                                                                      "content":  {
+                                                                                                      "*/*":  {
+                                                                                                                  "schema":  {
+                                                                                                                                 "$ref":  "#/components/schemas/ApiResponseMedecinResponse"
+                                                                                                                             }
+                                                                                                              }
+                                                                                                  },
+                                                                                      "description":  "OK"
+                                                                                  }
+                                                                      },
+                                                        "tags":  [
+                                                                     "medecin-controller"
+                                                                 ]
+                                                    }
+                                       },
+                  "/api/v1/medecins/search":  {
+                                                  "get":  {
+                                                              "operationId":  "search_1",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "in":  "query",
+                                                                                     "name":  "nom",
+                                                                                     "required":  true,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "content":  {
+                                                                                                            "*/*":  {
+                                                                                                                        "schema":  {
+                                                                                                                                       "$ref":  "#/components/schemas/ApiResponseListMedecinResponse"
+                                                                                                                                   }
+                                                                                                                    }
+                                                                                                        },
+                                                                                            "description":  "OK"
+                                                                                        }
+                                                                            },
+                                                              "tags":  [
+                                                                           "medecin-controller"
+                                                                       ]
+                                                          }
+                                              },
+                  "/api/v1/medecins/{id}":  {
+                                                "delete":  {
+                                                               "operationId":  "delete_2",
+                                                               "parameters":  [
+                                                                                  {
+                                                                                      "in":  "path",
+                                                                                      "name":  "id",
+                                                                                      "required":  true,
+                                                                                      "schema":  {
+                                                                                                     "type":  "string",
+                                                                                                     "format":  "uuid"
+                                                                                                 }
+                                                                                  }
+                                                                              ],
+                                                               "responses":  {
+                                                                                 "200":  {
+                                                                                             "content":  {
+                                                                                                             "*/*":  {
+                                                                                                                         "schema":  {
+                                                                                                                                        "$ref":  "#/components/schemas/ApiResponseVoid"
+                                                                                                                                    }
+                                                                                                                     }
+                                                                                                         },
+                                                                                             "description":  "OK"
+                                                                                         }
+                                                                             },
+                                                               "tags":  [
+                                                                            "medecin-controller"
+                                                                        ]
+                                                           },
+                                                "get":  {
+                                                            "operationId":  "getById_2",
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "in":  "path",
+                                                                                   "name":  "id",
+                                                                                   "required":  true,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              }
+                                                                               }
+                                                                           ],
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponseMedecinResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "medecin-controller"
+                                                                     ]
+                                                        },
+                                                "put":  {
+                                                            "operationId":  "update_2",
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "in":  "path",
+                                                                                   "name":  "id",
+                                                                                   "required":  true,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              }
+                                                                               }
+                                                                           ],
+                                                            "requestBody":  {
+                                                                                "content":  {
+                                                                                                "application/json":  {
+                                                                                                                         "schema":  {
+                                                                                                                                        "$ref":  "#/components/schemas/MedecinRequest"
+                                                                                                                                    }
+                                                                                                                     }
+                                                                                            },
+                                                                                "required":  true
+                                                                            },
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponseMedecinResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "medecin-controller"
+                                                                     ]
+                                                        }
+                                            },
+                  "/api/v1/notifications":  {
+                                                "get":  {
+                                                            "operationId":  "findAll",
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponseListNotificationResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "notification-controller"
+                                                                     ]
+                                                        }
+                                            },
+                  "/api/v1/notifications/annulation/{rendezVousId}":  {
+                                                                          "post":  {
+                                                                                       "operationId":  "sendCancellation",
+                                                                                       "parameters":  [
+                                                                                                          {
+                                                                                                              "in":  "path",
+                                                                                                              "name":  "rendezVousId",
+                                                                                                              "required":  true,
+                                                                                                              "schema":  {
+                                                                                                                             "type":  "string",
+                                                                                                                             "format":  "uuid"
+                                                                                                                         }
+                                                                                                          }
+                                                                                                      ],
+                                                                                       "responses":  {
+                                                                                                         "200":  {
+                                                                                                                     "content":  {
+                                                                                                                                     "*/*":  {
+                                                                                                                                                 "schema":  {
+                                                                                                                                                                "$ref":  "#/components/schemas/ApiResponseNotificationResponse"
+                                                                                                                                                            }
+                                                                                                                                             }
+                                                                                                                                 },
+                                                                                                                     "description":  "OK"
+                                                                                                                 }
+                                                                                                     },
+                                                                                       "tags":  [
+                                                                                                    "notification-controller"
+                                                                                                ]
+                                                                                   }
+                                                                      },
+                  "/api/v1/notifications/confirmation/{rendezVousId}":  {
+                                                                            "post":  {
+                                                                                         "operationId":  "sendConfirmation",
+                                                                                         "parameters":  [
+                                                                                                            {
+                                                                                                                "in":  "path",
+                                                                                                                "name":  "rendezVousId",
+                                                                                                                "required":  true,
+                                                                                                                "schema":  {
+                                                                                                                               "type":  "string",
+                                                                                                                               "format":  "uuid"
+                                                                                                                           }
+                                                                                                            }
+                                                                                                        ],
+                                                                                         "responses":  {
+                                                                                                           "200":  {
+                                                                                                                       "content":  {
+                                                                                                                                       "*/*":  {
+                                                                                                                                                   "schema":  {
+                                                                                                                                                                  "$ref":  "#/components/schemas/ApiResponseNotificationResponse"
+                                                                                                                                                              }
+                                                                                                                                               }
+                                                                                                                                   },
+                                                                                                                       "description":  "OK"
+                                                                                                                   }
+                                                                                                       },
+                                                                                         "tags":  [
+                                                                                                      "notification-controller"
+                                                                                                  ]
+                                                                                     }
+                                                                        },
+                  "/api/v1/notifications/rappel/{rendezVousId}":  {
+                                                                      "post":  {
+                                                                                   "operationId":  "sendReminder",
+                                                                                   "parameters":  [
+                                                                                                      {
+                                                                                                          "in":  "path",
+                                                                                                          "name":  "rendezVousId",
+                                                                                                          "required":  true,
+                                                                                                          "schema":  {
+                                                                                                                         "type":  "string",
+                                                                                                                         "format":  "uuid"
+                                                                                                                     }
+                                                                                                      }
+                                                                                                  ],
+                                                                                   "responses":  {
+                                                                                                     "200":  {
+                                                                                                                 "content":  {
+                                                                                                                                 "*/*":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/ApiResponseNotificationResponse"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                             },
+                                                                                                                 "description":  "OK"
+                                                                                                             }
+                                                                                                 },
+                                                                                   "tags":  [
+                                                                                                "notification-controller"
+                                                                                            ]
+                                                                               }
+                                                                  },
+                  "/api/v1/notifications/rappels":  {
+                                                        "post":  {
+                                                                     "operationId":  "sendDailyReminders",
+                                                                     "parameters":  [
+                                                                                        {
+                                                                                            "in":  "query",
+                                                                                            "name":  "date",
+                                                                                            "required":  false,
+                                                                                            "schema":  {
+                                                                                                           "type":  "string",
+                                                                                                           "format":  "date"
+                                                                                                       }
+                                                                                        }
+                                                                                    ],
+                                                                     "responses":  {
+                                                                                       "200":  {
+                                                                                                   "content":  {
+                                                                                                                   "*/*":  {
+                                                                                                                               "schema":  {
+                                                                                                                                              "$ref":  "#/components/schemas/ApiResponseListNotificationResponse"
+                                                                                                                                          }
+                                                                                                                           }
+                                                                                                               },
+                                                                                                   "description":  "OK"
+                                                                                               }
+                                                                                   },
+                                                                     "tags":  [
+                                                                                  "notification-controller"
+                                                                              ]
+                                                                 }
+                                                    },
+                  "/api/v1/notifications/rendezvous/{rendezVousId}":  {
+                                                                          "get":  {
+                                                                                      "operationId":  "findByRendezVousId",
+                                                                                      "parameters":  [
+                                                                                                         {
+                                                                                                             "in":  "path",
+                                                                                                             "name":  "rendezVousId",
+                                                                                                             "required":  true,
+                                                                                                             "schema":  {
+                                                                                                                            "type":  "string",
+                                                                                                                            "format":  "uuid"
+                                                                                                                        }
+                                                                                                         }
+                                                                                                     ],
+                                                                                      "responses":  {
+                                                                                                        "200":  {
+                                                                                                                    "content":  {
+                                                                                                                                    "*/*":  {
+                                                                                                                                                "schema":  {
+                                                                                                                                                               "$ref":  "#/components/schemas/ApiResponseListNotificationResponse"
+                                                                                                                                                           }
+                                                                                                                                            }
+                                                                                                                                },
+                                                                                                                    "description":  "OK"
+                                                                                                                }
+                                                                                                    },
+                                                                                      "tags":  [
+                                                                                                   "notification-controller"
+                                                                                               ]
+                                                                                  }
+                                                                      },
+                  "/api/v1/notifications/statut/{statut}":  {
+                                                                "get":  {
+                                                                            "operationId":  "findByStatut",
+                                                                            "parameters":  [
+                                                                                               {
+                                                                                                   "in":  "path",
+                                                                                                   "name":  "statut",
+                                                                                                   "required":  true,
+                                                                                                   "schema":  {
+                                                                                                                  "type":  "string",
+                                                                                                                  "enum":  [
+                                                                                                                               "EN_ATTENTE",
+                                                                                                                               "ENVOYEE",
+                                                                                                                               "ECHEC"
+                                                                                                                           ]
+                                                                                                              }
+                                                                                               }
+                                                                                           ],
+                                                                            "responses":  {
+                                                                                              "200":  {
+                                                                                                          "content":  {
+                                                                                                                          "*/*":  {
+                                                                                                                                      "schema":  {
+                                                                                                                                                     "$ref":  "#/components/schemas/ApiResponseListNotificationResponse"
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                                      },
+                                                                                                          "description":  "OK"
+                                                                                                      }
+                                                                                          },
+                                                                            "tags":  [
+                                                                                         "notification-controller"
+                                                                                     ]
+                                                                        }
+                                                            },
+                  "/api/v1/notifications/{id}":  {
+                                                     "get":  {
+                                                                 "operationId":  "findById",
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "in":  "path",
+                                                                                        "name":  "id",
+                                                                                        "required":  true,
+                                                                                        "schema":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "uuid"
+                                                                                                   }
+                                                                                    }
+                                                                                ],
+                                                                 "responses":  {
+                                                                                   "200":  {
+                                                                                               "content":  {
+                                                                                                               "*/*":  {
+                                                                                                                           "schema":  {
+                                                                                                                                          "$ref":  "#/components/schemas/ApiResponseNotificationResponse"
+                                                                                                                                      }
+                                                                                                                       }
+                                                                                                           },
+                                                                                               "description":  "OK"
+                                                                                           }
+                                                                               },
+                                                                 "tags":  [
+                                                                              "notification-controller"
+                                                                          ]
+                                                             }
+                                                 },
+                  "/api/v1/patients":  {
+                                           "get":  {
+                                                       "operationId":  "getAll_1",
+                                                       "responses":  {
+                                                                         "200":  {
+                                                                                     "content":  {
+                                                                                                     "*/*":  {
+                                                                                                                 "schema":  {
+                                                                                                                                "$ref":  "#/components/schemas/ApiResponseListPatientResponse"
+                                                                                                                            }
+                                                                                                             }
+                                                                                                 },
+                                                                                     "description":  "OK"
+                                                                                 }
+                                                                     },
+                                                       "tags":  [
+                                                                    "patient-controller"
+                                                                ]
+                                                   },
+                                           "post":  {
+                                                        "operationId":  "create_1",
+                                                        "requestBody":  {
+                                                                            "content":  {
+                                                                                            "application/json":  {
+                                                                                                                     "schema":  {
+                                                                                                                                    "$ref":  "#/components/schemas/PatientRequest"
+                                                                                                                                }
+                                                                                                                 }
+                                                                                        },
+                                                                            "required":  true
+                                                                        },
+                                                        "responses":  {
+                                                                          "200":  {
+                                                                                      "content":  {
+                                                                                                      "*/*":  {
+                                                                                                                  "schema":  {
+                                                                                                                                 "$ref":  "#/components/schemas/ApiResponsePatientResponse"
+                                                                                                                             }
+                                                                                                              }
+                                                                                                  },
+                                                                                      "description":  "OK"
+                                                                                  }
+                                                                      },
+                                                        "tags":  [
+                                                                     "patient-controller"
+                                                                 ]
+                                                    }
+                                       },
+                  "/api/v1/patients/search":  {
+                                                  "get":  {
+                                                              "operationId":  "search",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "in":  "query",
+                                                                                     "name":  "nom",
+                                                                                     "required":  true,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "content":  {
+                                                                                                            "*/*":  {
+                                                                                                                        "schema":  {
+                                                                                                                                       "$ref":  "#/components/schemas/ApiResponseListPatientResponse"
+                                                                                                                                   }
+                                                                                                                    }
+                                                                                                        },
+                                                                                            "description":  "OK"
+                                                                                        }
+                                                                            },
+                                                              "tags":  [
+                                                                           "patient-controller"
+                                                                       ]
+                                                          }
+                                              },
+                  "/api/v1/patients/{id}":  {
+                                                "delete":  {
+                                                               "operationId":  "delete_1",
+                                                               "parameters":  [
+                                                                                  {
+                                                                                      "in":  "path",
+                                                                                      "name":  "id",
+                                                                                      "required":  true,
+                                                                                      "schema":  {
+                                                                                                     "type":  "string",
+                                                                                                     "format":  "uuid"
+                                                                                                 }
+                                                                                  }
+                                                                              ],
+                                                               "responses":  {
+                                                                                 "200":  {
+                                                                                             "content":  {
+                                                                                                             "*/*":  {
+                                                                                                                         "schema":  {
+                                                                                                                                        "$ref":  "#/components/schemas/ApiResponseVoid"
+                                                                                                                                    }
+                                                                                                                     }
+                                                                                                         },
+                                                                                             "description":  "OK"
+                                                                                         }
+                                                                             },
+                                                               "tags":  [
+                                                                            "patient-controller"
+                                                                        ]
+                                                           },
+                                                "get":  {
+                                                            "operationId":  "getById_1",
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "in":  "path",
+                                                                                   "name":  "id",
+                                                                                   "required":  true,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              }
+                                                                               }
+                                                                           ],
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponsePatientResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "patient-controller"
+                                                                     ]
+                                                        },
+                                                "put":  {
+                                                            "operationId":  "update_1",
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "in":  "path",
+                                                                                   "name":  "id",
+                                                                                   "required":  true,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              }
+                                                                               }
+                                                                           ],
+                                                            "requestBody":  {
+                                                                                "content":  {
+                                                                                                "application/json":  {
+                                                                                                                         "schema":  {
+                                                                                                                                        "$ref":  "#/components/schemas/PatientRequest"
+                                                                                                                                    }
+                                                                                                                     }
+                                                                                            },
+                                                                                "required":  true
+                                                                            },
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "content":  {
+                                                                                                          "*/*":  {
+                                                                                                                      "schema":  {
+                                                                                                                                     "$ref":  "#/components/schemas/ApiResponsePatientResponse"
+                                                                                                                                 }
+                                                                                                                  }
+                                                                                                      },
+                                                                                          "description":  "OK"
+                                                                                      }
+                                                                          },
+                                                            "tags":  [
+                                                                         "patient-controller"
+                                                                     ]
+                                                        }
+                                            },
+                  "/api/v1/rendezvous":  {
+                                             "get":  {
+                                                         "operationId":  "getAll",
+                                                         "responses":  {
+                                                                           "200":  {
+                                                                                       "content":  {
+                                                                                                       "*/*":  {
+                                                                                                                   "schema":  {
+                                                                                                                                  "$ref":  "#/components/schemas/ApiResponseListRendezVousResponse"
+                                                                                                                              }
+                                                                                                               }
+                                                                                                   },
+                                                                                       "description":  "OK"
+                                                                                   }
+                                                                       },
+                                                         "tags":  [
+                                                                      "rendez-vous-controller"
+                                                                  ]
+                                                     },
+                                             "post":  {
+                                                          "operationId":  "create",
+                                                          "requestBody":  {
+                                                                              "content":  {
+                                                                                              "application/json":  {
+                                                                                                                       "schema":  {
+                                                                                                                                      "$ref":  "#/components/schemas/RendezVousRequest"
+                                                                                                                                  }
+                                                                                                                   }
+                                                                                          },
+                                                                              "required":  true
+                                                                          },
+                                                          "responses":  {
+                                                                            "200":  {
+                                                                                        "content":  {
+                                                                                                        "*/*":  {
+                                                                                                                    "schema":  {
+                                                                                                                                   "$ref":  "#/components/schemas/ApiResponseRendezVousResponse"
+                                                                                                                               }
+                                                                                                                }
+                                                                                                    },
+                                                                                        "description":  "OK"
+                                                                                    }
+                                                                        },
+                                                          "tags":  [
+                                                                       "rendez-vous-controller"
+                                                                   ]
+                                                      }
+                                         },
+                  "/api/v1/rendezvous/search":  {
+                                                    "get":  {
+                                                                "operationId":  "searchByPatient",
+                                                                "parameters":  [
+                                                                                   {
+                                                                                       "in":  "query",
+                                                                                       "name":  "patientId",
+                                                                                       "required":  true,
+                                                                                       "schema":  {
+                                                                                                      "type":  "string",
+                                                                                                      "format":  "uuid"
+                                                                                                  }
+                                                                                   }
+                                                                               ],
+                                                                "responses":  {
+                                                                                  "200":  {
+                                                                                              "content":  {
+                                                                                                              "*/*":  {
+                                                                                                                          "schema":  {
+                                                                                                                                         "$ref":  "#/components/schemas/ApiResponseListRendezVousResponse"
+                                                                                                                                     }
+                                                                                                                      }
+                                                                                                          },
+                                                                                              "description":  "OK"
+                                                                                          }
+                                                                              },
+                                                                "tags":  [
+                                                                             "rendez-vous-controller"
+                                                                         ]
+                                                            }
+                                                },
+                  "/api/v1/rendezvous/{id}":  {
+                                                  "delete":  {
+                                                                 "operationId":  "delete",
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "in":  "path",
+                                                                                        "name":  "id",
+                                                                                        "required":  true,
+                                                                                        "schema":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "uuid"
+                                                                                                   }
+                                                                                    }
+                                                                                ],
+                                                                 "responses":  {
+                                                                                   "200":  {
+                                                                                               "content":  {
+                                                                                                               "*/*":  {
+                                                                                                                           "schema":  {
+                                                                                                                                          "$ref":  "#/components/schemas/ApiResponseVoid"
+                                                                                                                                      }
+                                                                                                                       }
+                                                                                                           },
+                                                                                               "description":  "OK"
+                                                                                           }
+                                                                               },
+                                                                 "tags":  [
+                                                                              "rendez-vous-controller"
+                                                                          ]
+                                                             },
+                                                  "get":  {
+                                                              "operationId":  "getById",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "in":  "path",
+                                                                                     "name":  "id",
+                                                                                     "required":  true,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string",
+                                                                                                    "format":  "uuid"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "content":  {
+                                                                                                            "*/*":  {
+                                                                                                                        "schema":  {
+                                                                                                                                       "$ref":  "#/components/schemas/ApiResponseRendezVousResponse"
+                                                                                                                                   }
+                                                                                                                    }
+                                                                                                        },
+                                                                                            "description":  "OK"
+                                                                                        }
+                                                                            },
+                                                              "tags":  [
+                                                                           "rendez-vous-controller"
+                                                                       ]
+                                                          },
+                                                  "put":  {
+                                                              "operationId":  "update",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "in":  "path",
+                                                                                     "name":  "id",
+                                                                                     "required":  true,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string",
+                                                                                                    "format":  "uuid"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "requestBody":  {
+                                                                                  "content":  {
+                                                                                                  "application/json":  {
+                                                                                                                           "schema":  {
+                                                                                                                                          "$ref":  "#/components/schemas/RendezVousRequest"
+                                                                                                                                      }
+                                                                                                                       }
+                                                                                              },
+                                                                                  "required":  true
+                                                                              },
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "content":  {
+                                                                                                            "*/*":  {
+                                                                                                                        "schema":  {
+                                                                                                                                       "$ref":  "#/components/schemas/ApiResponseRendezVousResponse"
+                                                                                                                                   }
+                                                                                                                    }
+                                                                                                        },
+                                                                                            "description":  "OK"
+                                                                                        }
+                                                                            },
+                                                              "tags":  [
+                                                                           "rendez-vous-controller"
+                                                                       ]
+                                                          }
+                                              }
+              },
+    "components":  {
+                       "schemas":  {
+                                       "ApiResponseConsultationResponse":  {
+                                                                               "type":  "object",
+                                                                               "properties":  {
+                                                                                                  "data":  {
+                                                                                                               "$ref":  "#/components/schemas/ConsultationResponse"
+                                                                                                           },
+                                                                                                  "message":  {
+                                                                                                                  "type":  "string"
+                                                                                                              },
+                                                                                                  "success":  {
+                                                                                                                  "type":  "boolean"
+                                                                                                              },
+                                                                                                  "timestamp":  {
+                                                                                                                    "type":  "string",
+                                                                                                                    "format":  "date-time"
+                                                                                                                }
+                                                                                              }
+                                                                           },
+                                       "ApiResponseFactureResponse":  {
+                                                                          "type":  "object",
+                                                                          "properties":  {
+                                                                                             "data":  {
+                                                                                                          "$ref":  "#/components/schemas/FactureResponse"
+                                                                                                      },
+                                                                                             "message":  {
+                                                                                                             "type":  "string"
+                                                                                                         },
+                                                                                             "success":  {
+                                                                                                             "type":  "boolean"
+                                                                                                         },
+                                                                                             "timestamp":  {
+                                                                                                               "type":  "string",
+                                                                                                               "format":  "date-time"
+                                                                                                           }
+                                                                                         }
+                                                                      },
+                                       "ApiResponseListConsultationResponse":  {
+                                                                                   "type":  "object",
+                                                                                   "properties":  {
+                                                                                                      "data":  {
+                                                                                                                   "type":  "array",
+                                                                                                                   "items":  {
+                                                                                                                                 "$ref":  "#/components/schemas/ConsultationResponse"
+                                                                                                                             }
+                                                                                                               },
+                                                                                                      "message":  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                      "success":  {
+                                                                                                                      "type":  "boolean"
+                                                                                                                  },
+                                                                                                      "timestamp":  {
+                                                                                                                        "type":  "string",
+                                                                                                                        "format":  "date-time"
+                                                                                                                    }
+                                                                                                  }
+                                                                               },
+                                       "ApiResponseListFactureResponse":  {
+                                                                              "type":  "object",
+                                                                              "properties":  {
+                                                                                                 "data":  {
+                                                                                                              "type":  "array",
+                                                                                                              "items":  {
+                                                                                                                            "$ref":  "#/components/schemas/FactureResponse"
+                                                                                                                        }
+                                                                                                          },
+                                                                                                 "message":  {
+                                                                                                                 "type":  "string"
+                                                                                                             },
+                                                                                                 "success":  {
+                                                                                                                 "type":  "boolean"
+                                                                                                             },
+                                                                                                 "timestamp":  {
+                                                                                                                   "type":  "string",
+                                                                                                                   "format":  "date-time"
+                                                                                                               }
+                                                                                             }
+                                                                          },
+                                       "ApiResponseListMedecinResponse":  {
+                                                                              "type":  "object",
+                                                                              "properties":  {
+                                                                                                 "data":  {
+                                                                                                              "type":  "array",
+                                                                                                              "items":  {
+                                                                                                                            "$ref":  "#/components/schemas/MedecinResponse"
+                                                                                                                        }
+                                                                                                          },
+                                                                                                 "message":  {
+                                                                                                                 "type":  "string"
+                                                                                                             },
+                                                                                                 "success":  {
+                                                                                                                 "type":  "boolean"
+                                                                                                             },
+                                                                                                 "timestamp":  {
+                                                                                                                   "type":  "string",
+                                                                                                                   "format":  "date-time"
+                                                                                                               }
+                                                                                             }
+                                                                          },
+                                       "ApiResponseListNotificationResponse":  {
+                                                                                   "type":  "object",
+                                                                                   "properties":  {
+                                                                                                      "data":  {
+                                                                                                                   "type":  "array",
+                                                                                                                   "items":  {
+                                                                                                                                 "$ref":  "#/components/schemas/NotificationResponse"
+                                                                                                                             }
+                                                                                                               },
+                                                                                                      "message":  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                      "success":  {
+                                                                                                                      "type":  "boolean"
+                                                                                                                  },
+                                                                                                      "timestamp":  {
+                                                                                                                        "type":  "string",
+                                                                                                                        "format":  "date-time"
+                                                                                                                    }
+                                                                                                  }
+                                                                               },
+                                       "ApiResponseListPatientResponse":  {
+                                                                              "type":  "object",
+                                                                              "properties":  {
+                                                                                                 "data":  {
+                                                                                                              "type":  "array",
+                                                                                                              "items":  {
+                                                                                                                            "$ref":  "#/components/schemas/PatientResponse"
+                                                                                                                        }
+                                                                                                          },
+                                                                                                 "message":  {
+                                                                                                                 "type":  "string"
+                                                                                                             },
+                                                                                                 "success":  {
+                                                                                                                 "type":  "boolean"
+                                                                                                             },
+                                                                                                 "timestamp":  {
+                                                                                                                   "type":  "string",
+                                                                                                                   "format":  "date-time"
+                                                                                                               }
+                                                                                             }
+                                                                          },
+                                       "ApiResponseListRendezVousResponse":  {
+                                                                                 "type":  "object",
+                                                                                 "properties":  {
+                                                                                                    "data":  {
+                                                                                                                 "type":  "array",
+                                                                                                                 "items":  {
+                                                                                                                               "$ref":  "#/components/schemas/RendezVousResponse"
+                                                                                                                           }
+                                                                                                             },
+                                                                                                    "message":  {
+                                                                                                                    "type":  "string"
+                                                                                                                },
+                                                                                                    "success":  {
+                                                                                                                    "type":  "boolean"
+                                                                                                                },
+                                                                                                    "timestamp":  {
+                                                                                                                      "type":  "string",
+                                                                                                                      "format":  "date-time"
+                                                                                                                  }
+                                                                                                }
+                                                                             },
+                                       "ApiResponseMedecinResponse":  {
+                                                                          "type":  "object",
+                                                                          "properties":  {
+                                                                                             "data":  {
+                                                                                                          "$ref":  "#/components/schemas/MedecinResponse"
+                                                                                                      },
+                                                                                             "message":  {
+                                                                                                             "type":  "string"
+                                                                                                         },
+                                                                                             "success":  {
+                                                                                                             "type":  "boolean"
+                                                                                                         },
+                                                                                             "timestamp":  {
+                                                                                                               "type":  "string",
+                                                                                                               "format":  "date-time"
+                                                                                                           }
+                                                                                         }
+                                                                      },
+                                       "ApiResponseNotificationResponse":  {
+                                                                               "type":  "object",
+                                                                               "properties":  {
+                                                                                                  "data":  {
+                                                                                                               "$ref":  "#/components/schemas/NotificationResponse"
+                                                                                                           },
+                                                                                                  "message":  {
+                                                                                                                  "type":  "string"
+                                                                                                              },
+                                                                                                  "success":  {
+                                                                                                                  "type":  "boolean"
+                                                                                                              },
+                                                                                                  "timestamp":  {
+                                                                                                                    "type":  "string",
+                                                                                                                    "format":  "date-time"
+                                                                                                                }
+                                                                                              }
+                                                                           },
+                                       "ApiResponsePatientResponse":  {
+                                                                          "type":  "object",
+                                                                          "properties":  {
+                                                                                             "data":  {
+                                                                                                          "$ref":  "#/components/schemas/PatientResponse"
+                                                                                                      },
+                                                                                             "message":  {
+                                                                                                             "type":  "string"
+                                                                                                         },
+                                                                                             "success":  {
+                                                                                                             "type":  "boolean"
+                                                                                                         },
+                                                                                             "timestamp":  {
+                                                                                                               "type":  "string",
+                                                                                                               "format":  "date-time"
+                                                                                                           }
+                                                                                         }
+                                                                      },
+                                       "ApiResponseRendezVousResponse":  {
+                                                                             "type":  "object",
+                                                                             "properties":  {
+                                                                                                "data":  {
+                                                                                                             "$ref":  "#/components/schemas/RendezVousResponse"
+                                                                                                         },
+                                                                                                "message":  {
+                                                                                                                "type":  "string"
+                                                                                                            },
+                                                                                                "success":  {
+                                                                                                                "type":  "boolean"
+                                                                                                            },
+                                                                                                "timestamp":  {
+                                                                                                                  "type":  "string",
+                                                                                                                  "format":  "date-time"
+                                                                                                              }
+                                                                                            }
+                                                                         },
+                                       "ApiResponseVoid":  {
+                                                               "type":  "object",
+                                                               "properties":  {
+                                                                                  "data":  {
+                                                                                               "type":  "object"
+                                                                                           },
+                                                                                  "message":  {
+                                                                                                  "type":  "string"
+                                                                                              },
+                                                                                  "success":  {
+                                                                                                  "type":  "boolean"
+                                                                                              },
+                                                                                  "timestamp":  {
+                                                                                                    "type":  "string",
+                                                                                                    "format":  "date-time"
+                                                                                                }
+                                                                              }
+                                                           },
+                                       "AuthRequest":  {
+                                                           "required":  [
+                                                                            "password",
+                                                                            "username"
+                                                                        ],
+                                                           "type":  "object",
+                                                           "properties":  {
+                                                                              "password":  {
+                                                                                               "type":  "string"
+                                                                                           },
+                                                                              "username":  {
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          }
+                                                       },
+                                       "AuthResponse":  {
+                                                            "type":  "object",
+                                                            "properties":  {
+                                                                               "roles":  {
+                                                                                             "uniqueItems":  true,
+                                                                                             "type":  "array",
+                                                                                             "items":  {
+                                                                                                           "type":  "string",
+                                                                                                           "enum":  [
+                                                                                                                        "ROLE_ADMIN",
+                                                                                                                        "ROLE_DOCTOR",
+                                                                                                                        "ROLE_RECEPTIONIST",
+                                                                                                                        "ROLE_USER"
+                                                                                                                    ]
+                                                                                                       }
+                                                                                         },
+                                                                               "token":  {
+                                                                                             "type":  "string"
+                                                                                         },
+                                                                               "type":  {
+                                                                                            "type":  "string"
+                                                                                        },
+                                                                               "username":  {
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           }
+                                                        },
+                                       "ConsultationRequest":  {
+                                                                   "required":  [
+                                                                                    "prix",
+                                                                                    "rendezVousId"
+                                                                                ],
+                                                                   "type":  "object",
+                                                                   "properties":  {
+                                                                                      "diagnostic":  {
+                                                                                                         "type":  "string"
+                                                                                                     },
+                                                                                      "ordonnance":  {
+                                                                                                         "type":  "string"
+                                                                                                     },
+                                                                                      "prix":  {
+                                                                                                   "minimum":  0.0,
+                                                                                                   "exclusiveMinimum":  false,
+                                                                                                   "type":  "number"
+                                                                                               },
+                                                                                      "rendezVousId":  {
+                                                                                                           "type":  "string",
+                                                                                                           "format":  "uuid"
+                                                                                                       }
+                                                                                  }
+                                                               },
+                                       "ConsultationResponse":  {
+                                                                    "type":  "object",
+                                                                    "properties":  {
+                                                                                       "diagnostic":  {
+                                                                                                          "type":  "string"
+                                                                                                      },
+                                                                                       "id":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              },
+                                                                                       "ordonnance":  {
+                                                                                                          "type":  "string"
+                                                                                                      },
+                                                                                       "prix":  {
+                                                                                                    "type":  "number"
+                                                                                                },
+                                                                                       "rendezVous":  {
+                                                                                                          "$ref":  "#/components/schemas/RendezVousResponse"
+                                                                                                      }
+                                                                                   }
+                                                                },
+                                       "FactureResponse":  {
+                                                               "type":  "object",
+                                                               "properties":  {
+                                                                                  "consultation":  {
+                                                                                                       "$ref":  "#/components/schemas/ConsultationResponse"
+                                                                                                   },
+                                                                                  "dateEmission":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "date-time"
+                                                                                                   },
+                                                                                  "id":  {
+                                                                                             "type":  "string",
+                                                                                             "format":  "uuid"
+                                                                                         },
+                                                                                  "montant":  {
+                                                                                                  "type":  "number"
+                                                                                              },
+                                                                                  "numeroFacture":  {
+                                                                                                        "type":  "string"
+                                                                                                    },
+                                                                                  "statutPaiement":  {
+                                                                                                         "type":  "string",
+                                                                                                         "enum":  [
+                                                                                                                      "EN_ATTENTE",
+                                                                                                                      "PAYEE",
+                                                                                                                      "ANNULEE"
+                                                                                                                  ]
+                                                                                                     }
+                                                                              }
+                                                           },
+                                       "MedecinRequest":  {
+                                                              "required":  [
+                                                                               "email",
+                                                                               "nom",
+                                                                               "specialite",
+                                                                               "tel"
+                                                                           ],
+                                                              "type":  "object",
+                                                              "properties":  {
+                                                                                 "email":  {
+                                                                                               "maxLength":  150,
+                                                                                               "minLength":  0,
+                                                                                               "type":  "string"
+                                                                                           },
+                                                                                 "nom":  {
+                                                                                             "maxLength":  100,
+                                                                                             "minLength":  0,
+                                                                                             "type":  "string"
+                                                                                         },
+                                                                                 "specialite":  {
+                                                                                                    "maxLength":  100,
+                                                                                                    "minLength":  0,
+                                                                                                    "type":  "string"
+                                                                                                },
+                                                                                 "tel":  {
+                                                                                             "maxLength":  30,
+                                                                                             "minLength":  0,
+                                                                                             "type":  "string"
+                                                                                         }
+                                                                             }
+                                                          },
+                                       "MedecinResponse":  {
+                                                               "type":  "object",
+                                                               "properties":  {
+                                                                                  "email":  {
+                                                                                                "type":  "string"
+                                                                                            },
+                                                                                  "id":  {
+                                                                                             "type":  "string",
+                                                                                             "format":  "uuid"
+                                                                                         },
+                                                                                  "nom":  {
+                                                                                              "type":  "string"
+                                                                                          },
+                                                                                  "specialite":  {
+                                                                                                     "type":  "string"
+                                                                                                 },
+                                                                                  "tel":  {
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                              }
+                                                           },
+                                       "NotificationResponse":  {
+                                                                    "type":  "object",
+                                                                    "properties":  {
+                                                                                       "dateEnvoi":  {
+                                                                                                         "type":  "string",
+                                                                                                         "format":  "date-time"
+                                                                                                     },
+                                                                                       "id":  {
+                                                                                                  "type":  "string",
+                                                                                                  "format":  "uuid"
+                                                                                              },
+                                                                                       "message":  {
+                                                                                                       "type":  "string"
+                                                                                                   },
+                                                                                       "rendezVous":  {
+                                                                                                          "$ref":  "#/components/schemas/RendezVousResponse"
+                                                                                                      },
+                                                                                       "statut":  {
+                                                                                                      "type":  "string",
+                                                                                                      "enum":  [
+                                                                                                                   "EN_ATTENTE",
+                                                                                                                   "ENVOYEE",
+                                                                                                                   "ECHEC"
+                                                                                                               ]
+                                                                                                  },
+                                                                                       "type":  {
+                                                                                                    "type":  "string",
+                                                                                                    "enum":  [
+                                                                                                                 "RAPPEL",
+                                                                                                                 "CONFIRMATION",
+                                                                                                                 "ANNULATION"
+                                                                                                             ]
+                                                                                                }
+                                                                                   }
+                                                                },
+                                       "PatientRequest":  {
+                                                              "required":  [
+                                                                               "dateNaissance",
+                                                                               "nom",
+                                                                               "tel"
+                                                                           ],
+                                                              "type":  "object",
+                                                              "properties":  {
+                                                                                 "dateNaissance":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "date"
+                                                                                                   },
+                                                                                 "dossierMedical":  {
+                                                                                                        "maxLength":  1000,
+                                                                                                        "minLength":  0,
+                                                                                                        "type":  "string"
+                                                                                                    },
+                                                                                 "nom":  {
+                                                                                             "maxLength":  100,
+                                                                                             "minLength":  0,
+                                                                                             "type":  "string"
+                                                                                         },
+                                                                                 "tel":  {
+                                                                                             "maxLength":  30,
+                                                                                             "minLength":  0,
+                                                                                             "type":  "string"
+                                                                                         }
+                                                                             }
+                                                          },
+                                       "PatientResponse":  {
+                                                               "type":  "object",
+                                                               "properties":  {
+                                                                                  "dateNaissance":  {
+                                                                                                        "type":  "string",
+                                                                                                        "format":  "date"
+                                                                                                    },
+                                                                                  "dossierMedical":  {
+                                                                                                         "type":  "string"
+                                                                                                     },
+                                                                                  "id":  {
+                                                                                             "type":  "string",
+                                                                                             "format":  "uuid"
+                                                                                         },
+                                                                                  "nom":  {
+                                                                                              "type":  "string"
+                                                                                          },
+                                                                                  "tel":  {
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                              }
+                                                           },
+                                       "RendezVousRequest":  {
+                                                                 "required":  [
+                                                                                  "dateHeure",
+                                                                                  "medecinId",
+                                                                                  "motif",
+                                                                                  "patientId",
+                                                                                  "statut"
+                                                                              ],
+                                                                 "type":  "object",
+                                                                 "properties":  {
+                                                                                    "dateHeure":  {
+                                                                                                      "type":  "string",
+                                                                                                      "format":  "date-time"
+                                                                                                  },
+                                                                                    "medecinId":  {
+                                                                                                      "type":  "string",
+                                                                                                      "format":  "uuid"
+                                                                                                  },
+                                                                                    "motif":  {
+                                                                                                  "maxLength":  500,
+                                                                                                  "minLength":  0,
+                                                                                                  "type":  "string"
+                                                                                              },
+                                                                                    "patientId":  {
+                                                                                                      "type":  "string",
+                                                                                                      "format":  "uuid"
+                                                                                                  },
+                                                                                    "statut":  {
+                                                                                                   "type":  "string",
+                                                                                                   "enum":  [
+                                                                                                                "EN_ATTENTE",
+                                                                                                                "CONFIRME",
+                                                                                                                "ANNULE",
+                                                                                                                "TERMINE"
+                                                                                                            ]
+                                                                                               }
+                                                                                }
+                                                             },
+                                       "RendezVousResponse":  {
+                                                                  "type":  "object",
+                                                                  "properties":  {
+                                                                                     "dateHeure":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "date-time"
+                                                                                                   },
+                                                                                     "id":  {
+                                                                                                "type":  "string",
+                                                                                                "format":  "uuid"
+                                                                                            },
+                                                                                     "medecinId":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "uuid"
+                                                                                                   },
+                                                                                     "medecinNom":  {
+                                                                                                        "type":  "string"
+                                                                                                    },
+                                                                                     "motif":  {
+                                                                                                   "type":  "string"
+                                                                                               },
+                                                                                     "patientId":  {
+                                                                                                       "type":  "string",
+                                                                                                       "format":  "uuid"
+                                                                                                   },
+                                                                                     "patientNom":  {
+                                                                                                        "type":  "string"
+                                                                                                    },
+                                                                                     "statut":  {
+                                                                                                    "type":  "string",
+                                                                                                    "enum":  [
+                                                                                                                 "EN_ATTENTE",
+                                                                                                                 "CONFIRME",
+                                                                                                                 "ANNULE",
+                                                                                                                 "TERMINE"
+                                                                                                             ]
+                                                                                                }
+                                                                                 }
+                                                              }
+                                   },
+                       "securitySchemes":  {
+                                               "bearerAuth":  {
+                                                                  "bearerFormat":  "JWT",
+                                                                  "scheme":  "bearer",
+                                                                  "type":  "http"
+                                                              }
+                                           }
+                   }
+}

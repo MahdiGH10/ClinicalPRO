@@ -31,7 +31,10 @@ jwt:
   expiration: ${JWT_EXPIRATION_MS:86400000}
 
 springdoc:
+  writer-with-order-by-keys: true
   swagger-ui:
     path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
   api-docs:
     path: /api-docs
