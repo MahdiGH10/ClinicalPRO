@@ -1,0 +1,104 @@
+<section class="dashboard">
+  <header class="dashboard__header">
+    <div>
+      <p class="kicker">Live overview</p>
+      <h2>Dashboard branché sur l’API réelle</h2>
+      <p>Les chiffres ci-dessous viennent directement du backend ClinicPro.</p>
+    </div>
+    <div class="dashboard__actions">
+      @if (lastUpdated()) {
+        <small>Mis à jour: {{ lastUpdated() | date: 'short' }}</small>
+      }
+      <button type="button" (click)="refresh()" [disabled]="loading()">
+        {{ loading() ? 'Chargement...' : 'Rafraîchir' }}
+      </button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="state state--error">{{ error() }}</article>
+  } @else if (loading()) {
+    <article class="state">Chargement des données dashboard...</article>
+  } @else {
+    <div class="cards">
+      <article class="card">
+        <p>Patients</p>
+        <strong>{{ stats().patients }}</strong>
+      </article>
+      <article class="card">
+        <p>Médecins</p>
+        <strong>{{ stats().medecins }}</strong>
+      </article>
+      <article class="card">
+        <p>Consultations</p>
+        <strong>{{ stats().consultations }}</strong>
+      </article>
+      <article class="card">
+        <p>RDV aujourd’hui</p>
+        <strong>{{ stats().rendezVousToday }}</strong>
+      </article>
+      <article class="card">
+        <p>RDV confirmés</p>
+        <strong>{{ stats().rendezVousConfirmed }}</strong>
+      </article>
+      <article class="card">
+        <p>Factures en attente</p>
+        <strong>{{ stats().facturesPending }}</strong>
+      </article>
+      <article class="card">
+        <p>Notifications envoyées</p>
+        <strong>{{ stats().notificationsSent }}</strong>
+      </article>
+      <article class="card">
+        <p>Total rendez-vous</p>
+        <strong>{{ stats().rendezVousTotal }}</strong>
+      </article>
+    </div>
+
+    <div class="panels">
+      <section class="panel">
+        <h3>Prochains rendez-vous</h3>
+        @if (upcomingRendezVous().length === 0) {
+          <p class="empty">Aucun rendez-vous à venir.</p>
+        } @else {
+          <ul>
+            @for (rdv of upcomingRendezVous(); track rdv.id) {
+              <li>
+                <div>
+                  <strong>{{ rdv.patientNom }}</strong>
+                  <p>avec {{ rdv.medecinNom }}</p>
+                </div>
+                <div class="meta">
+                  <span>{{ rdv.dateHeure | date: 'short' }}</span>
+                  <small>{{ statusLabel(rdv.statut) }}</small>
+                </div>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      <section class="panel">
+        <h3>Dernières notifications</h3>
+        @if (latestNotifications().length === 0) {
+          <p class="empty">Aucune notification trouvée.</p>
+        } @else {
+          <ul>
+            @for (notification of latestNotifications(); track notification.id) {
+              <li>
+                <div>
+                  <strong>{{ notification.type }}</strong>
+                  <p>{{ notification.message }}</p>
+                </div>
+                <div class="meta">
+                  <span>{{ notification.dateEnvoi | date: 'short' }}</span>
+                  <small>{{ notification.statut }}</small>
+                </div>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+    </div>
+  }
+</section>

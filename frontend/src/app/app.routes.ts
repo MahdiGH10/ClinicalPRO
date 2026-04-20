@@ -4,6 +4,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { guestGuard } from './core/auth/guest.guard';
 import { LayoutComponent } from './features/layout/layout';
 import { LoginComponent } from './features/auth/pages/login/login';
+import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
 import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
 
 export const routes: Routes = [
@@ -19,11 +20,7 @@ export const routes: Routes = [
 		children: [
 			{
 				path: '',
-				component: FeaturePlaceholderComponent,
-				data: {
-					title: 'Dashboard',
-					description: 'Your clean Angular shell is ready. Plug feature slices into this space.'
-				}
+				component: DashboardComponent
 			},
 			{
 				path: 'patients',
