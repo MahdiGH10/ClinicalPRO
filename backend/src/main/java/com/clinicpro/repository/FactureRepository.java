@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.clinicpro.entity.Facture;
@@ -18,6 +19,6 @@ public interface FactureRepository extends JpaRepository<Facture, UUID> {
 
     List<Facture> findByStatutPaiement(StatutPaiement statutPaiement);
 
-    @Query("SELECT COUNT(f) FROM Facture f WHERE YEAR(f.dateEmission) = :year AND MONTH(f.dateEmission) = :month")
-    long countByYearAndMonth(int year, int month);
+    @Query("select count(f) from Facture f where year(f.dateEmission) = :year and month(f.dateEmission) = :month")
+    long countByYearAndMonth(@Param("year") int year, @Param("month") int month);
 }

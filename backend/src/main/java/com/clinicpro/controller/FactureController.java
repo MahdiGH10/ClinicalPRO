@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clinicpro.dto.response.ApiResponse;
 import com.clinicpro.dto.response.FactureResponse;
-import com.clinicpro.entity.StatutPaiement;
 import com.clinicpro.service.FactureService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,32 +27,32 @@ public class FactureController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<FactureResponse>>> findAll() {
-        return ResponseEntity.ok(ApiResponse.ok("Liste des factures récupérée", factureService.findAll()));
+        List<FactureResponse> data = factureService.findAll();
+        return ResponseEntity.ok(ApiResponse.ok("Liste des factures récupérée", data));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<FactureResponse>> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok(ApiResponse.ok("Facture récupérée", factureService.findById(id)));
+        FactureResponse data = factureService.findById(id);
+        return ResponseEntity.ok(ApiResponse.ok("Facture récupérée", data));
     }
 
     @GetMapping("/consultation/{consultationId}")
     public ResponseEntity<ApiResponse<FactureResponse>> findByConsultationId(@PathVariable UUID consultationId) {
-        return ResponseEntity.ok(ApiResponse.ok("Facture récupérée", factureService.findByConsultationId(consultationId)));
-    }
-
-    @GetMapping("/statut")
-    public ResponseEntity<ApiResponse<List<FactureResponse>>> findByStatut(@RequestParam StatutPaiement statut) {
-        return ResponseEntity.ok(ApiResponse.ok("Factures filtrées par statut", factureService.findByStatutPaiement(statut)));
+        FactureResponse data = factureService.findByConsultationId(consultationId);
+        return ResponseEntity.ok(ApiResponse.ok("Facture récupérée", data));
     }
 
     @PostMapping("/consultation/{consultationId}")
     public ResponseEntity<ApiResponse<FactureResponse>> generate(@PathVariable UUID consultationId) {
+        FactureResponse data = factureService.generateForConsultation(consultationId);
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ApiResponse.ok("Facture générée avec succès", factureService.generateForConsultationResponse(consultationId)));
+            .body(ApiResponse.ok("Facture générée avec succès", data));
     }
 
     @PatchMapping("/{id}/payer")
     public ResponseEntity<ApiResponse<FactureResponse>> markPaid(@PathVariable UUID id) {
-        return ResponseEntity.ok(ApiResponse.ok("Facture marquée comme payée", factureService.markPaidResponse(id)));
+        FactureResponse data = factureService.markPaid(id);
+        return ResponseEntity.ok(ApiResponse.ok("Facture marquée comme payée", data));
     }
 }

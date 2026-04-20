@@ -15,7 +15,6 @@ import com.clinicpro.entity.Consultation;
 import com.clinicpro.entity.Facture;
 import com.clinicpro.entity.RendezVous;
 import com.clinicpro.entity.StatutPaiement;
-import com.clinicpro.exception.DuplicateResourceException;
 import com.clinicpro.exception.ResourceNotFoundException;
 import com.clinicpro.repository.ConsultationRepository;
 import com.clinicpro.repository.FactureRepository;
@@ -51,33 +50,17 @@ public class FactureService {
         return toResponse(facture);
     }
 
-    @Transactional(readOnly = true)
-    public List<FactureResponse> findByStatutPaiement(StatutPaiement statutPaiement) {
-        return factureRepository.findByStatutPaiement(statutPaiement).stream()
-            .map(this::toResponse)
-            .collect(Collectors.toList());
-    }
-
-    public FactureResponse generateForConsultationResponse(UUID consultationId) {
+    @Transactional
+    public FactureResponse generateForConsultation(UUID consultationId) {
         return toResponse(resolveOrCreateFacture(consultationId));
     }
 
-    public Facture generateForConsultation(UUID consultationId) {
-        return resolveOrCreateFacture(consultationId);
-    }
-
-    public FactureResponse markPaidResponse(UUID factureId) {
+    @Transactional
+    public FactureResponse markPaid(UUID factureId) {
         Facture facture = factureRepository.findById(factureId)
             .orElseThrow(() -> new ResourceNotFoundException("Facture", factureId.toString()));
         facture.setStatutPaiement(StatutPaiement.PAYEE);
         return toResponse(factureRepository.save(facture));
-    }
-
-    public Facture markPaid(UUID factureId) {
-        Facture facture = factureRepository.findById(factureId)
-            .orElseThrow(() -> new ResourceNotFoundException("Facture", factureId.toString()));
-        facture.setStatutPaiement(StatutPaiement.PAYEE);
-        return factureRepository.save(facture);
     }
 
     private Facture resolveOrCreateFacture(UUID consultationId) {
@@ -88,10 +71,6 @@ public class FactureService {
     private Facture createNewFacture(UUID consultationId) {
         Consultation consultation = consultationRepository.findById(consultationId)
             .orElseThrow(() -> new ResourceNotFoundException("Consultation", consultationId.toString()));
-
-        if (consultation.getPrix() == null) {
-            throw new DuplicateResourceException("La consultation doit contenir un prix valide pour générer une facture");
-        }
 
         LocalDateTime now = LocalDateTime.now();
         long monthlyCount = factureRepository.countByYearAndMonth(now.getYear(), now.getMonthValue()) + 1;

@@ -112,6 +112,7 @@ class ConsultationServiceTest {
             .hasMessageContaining("déjà");
 
         verify(consultationRepository, never()).save(any(Consultation.class));
+        verify(factureService, never()).generateForConsultation(any());
     }
 
     @Test
