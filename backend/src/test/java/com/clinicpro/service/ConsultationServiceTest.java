@@ -39,6 +39,9 @@ class ConsultationServiceTest {
     @Mock
     private RendezVousRepository rendezVousRepository;
 
+    @Mock
+    private FactureService factureService;
+
     @InjectMocks
     private ConsultationService consultationService;
 
@@ -78,6 +81,7 @@ class ConsultationServiceTest {
         when(consultationRepository.existsByRendezVous_Id(rendezVousId)).thenReturn(false);
         when(consultationRepository.save(any(Consultation.class))).thenReturn(saved);
         when(rendezVousRepository.save(any(RendezVous.class))).thenReturn(rendezVous);
+        when(factureService.generateForConsultation(saved.getId())).thenReturn(null);
 
         var response = consultationService.create(request);
 
@@ -86,6 +90,7 @@ class ConsultationServiceTest {
         assertThat(response.getRendezVous().getPatientNom()).isEqualTo("Ali Test");
         assertThat(rendezVous.getStatut()).isEqualTo(StatutRendezVous.TERMINE);
         verify(rendezVousRepository).save(rendezVous);
+        verify(factureService).generateForConsultation(saved.getId());
     }
 
     @Test

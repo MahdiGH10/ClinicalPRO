@@ -27,6 +27,7 @@ public class ConsultationService {
 
     private final ConsultationRepository consultationRepository;
     private final RendezVousRepository rendezVousRepository;
+    private final FactureService factureService;
 
     @Transactional(readOnly = true)
     public List<ConsultationResponse> findAll() {
@@ -70,6 +71,8 @@ public class ConsultationService {
             rendezVous.setStatut(StatutRendezVous.TERMINE);
             rendezVousRepository.save(rendezVous);
         }
+
+        factureService.generateForConsultation(saved.getId());
 
         return toResponse(saved);
     }
