@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.clinicpro.entity.RendezVous;
+import com.clinicpro.entity.StatutRendezVous;
 
 @Repository
 public interface RendezVousRepository extends JpaRepository<RendezVous, UUID> {
@@ -19,4 +20,8 @@ public interface RendezVousRepository extends JpaRepository<RendezVous, UUID> {
     boolean existsByMedecin_IdAndDateHeure(UUID medecinId, LocalDateTime dateHeure);
 
     boolean existsByMedecin_IdAndDateHeureAndIdNot(UUID medecinId, LocalDateTime dateHeure, UUID id);
+
+    List<RendezVous> findByStatutAndDateHeureBetween(StatutRendezVous statut,
+                                                     LocalDateTime startDateTime,
+                                                     LocalDateTime endDateTime);
 }
