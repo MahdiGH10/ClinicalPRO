@@ -1,0 +1,21 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Backend
+backend/target/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
