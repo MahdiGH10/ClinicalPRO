@@ -1,0 +1,108 @@
+<section class="consultations-page">
+  <header class="consultations-page__header">
+    <div>
+      <p class="kicker">Consultations feature</p>
+      <h2>Gestion des consultations (API réelle)</h2>
+      <p>Création et listing branchés sur les endpoints backend.</p>
+    </div>
+  </header>
+
+  @if (error()) {
+    <article class="notice notice--error">{{ error() }}</article>
+  }
+
+  @if (success()) {
+    <article class="notice notice--success">{{ success() }}</article>
+  }
+
+  <section class="panel panel--form">
+    <div class="panel__head">
+      <h3>Nouvelle consultation</h3>
+      @if (loadingLookups()) {
+        <span class="state">Chargement des rendez-vous...</span>
+      }
+    </div>
+
+    <form class="consultation-form" [formGroup]="consultationForm" (ngSubmit)="saveConsultation()">
+      <label class="full-width">
+        <span>Rendez-vous</span>
+        <select formControlName="rendezVousId">
+          <option value="">Sélectionner un rendez-vous</option>
+          @for (item of filteredRendezVousOptions(); track item.id) {
+            <option [value]="item.id">{{ rendezVousLabel(item) }}</option>
+          }
+        </select>
+        @if (controlError('rendezVousId')) {
+          <small>Le rendez-vous est obligatoire.</small>
+        }
+      </label>
+
+      <label>
+        <span>Prix (MAD)</span>
+        <input type="number" min="0" step="0.01" formControlName="prix" placeholder="250" />
+        @if (controlError('prix')) {
+          <small>Le prix est obligatoire et doit être positif.</small>
+        }
+      </label>
+
+      <label class="full-width">
+        <span>Diagnostic</span>
+        <textarea rows="3" formControlName="diagnostic" placeholder="Diagnostic médical..."></textarea>
+      </label>
+
+      <label class="full-width">
+        <span>Ordonnance</span>
+        <textarea rows="3" formControlName="ordonnance" placeholder="Traitement prescrit..."></textarea>
+      </label>
+
+      <button type="submit" class="primary-btn" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement...' : 'Créer la consultation' }}
+      </button>
+    </form>
+  </section>
+
+  <section class="panel panel--list">
+    <div class="panel__head">
+      <h3>Consultations</h3>
+      <select #patientSelect (change)="searchByPatient(patientSelect.value)">
+        <option value="">Tous les patients</option>
+        @for (patient of patients(); track patient.id) {
+          <option [value]="patient.id">{{ patient.nom }}</option>
+        }
+      </select>
+      <div class="actions">
+        <button type="button" class="ghost-btn" (click)="searchByPatient(patientSelect.value)">Filtrer</button>
+        <button type="button" class="ghost-btn" (click)="patientSelect.value = ''; searchByPatient('')">Réinitialiser</button>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <p class="state">Chargement des consultations...</p>
+    } @else if (consultations().length === 0) {
+      <p class="state">Aucune consultation trouvée.</p>
+    } @else {
+      <ul class="consultation-list">
+        @for (item of consultations(); track item.id) {
+          <li>
+            <div>
+              <strong>{{ item.rendezVous.patientNom }}</strong>
+              <p>
+                Dr. {{ item.rendezVous.medecinNom }} ·
+                {{ formatDate(item.rendezVous.dateHeure) }}
+              </p>
+              <small>Prix: {{ item.prix | number: '1.2-2' }} MAD</small>
+            </div>
+            <div class="content">
+              @if (item.diagnostic) {
+                <p><strong>Diagnostic:</strong> {{ item.diagnostic }}</p>
+              }
+              @if (item.ordonnance) {
+                <p><strong>Ordonnance:</strong> {{ item.ordonnance }}</p>
+              }
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</section>

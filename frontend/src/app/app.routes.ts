@@ -8,6 +8,7 @@ import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboa
 import { PatientsComponent } from './features/patients/pages/patients/patients';
 import { MedecinsComponent } from './features/medecins/pages/medecins/medecins';
 import { RendezvousComponent } from './features/rendezvous/pages/rendezvous/rendezvous';
+import { ConsultationsComponent } from './features/consultations/pages/consultations/consultations';
 import { FeaturePlaceholderComponent } from './features/layout/pages/feature-placeholder/feature-placeholder';
 
 export const routes: Routes = [
@@ -39,11 +40,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'consultations',
-				component: FeaturePlaceholderComponent,
-				data: {
-					title: 'Consultations',
-					description: 'This route is reserved for the consultation feature slice.'
-				}
+				component: ConsultationsComponent
 			},
 			{
 				path: 'factures',
